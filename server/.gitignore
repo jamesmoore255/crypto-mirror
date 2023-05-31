@@ -1,0 +1,40 @@
+# Go binary and executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build output
+/build/
+
+# Go test and coverage output
+*.test
+*.out
+/cover/
+
+# Dependency directories
+/vendor/
+/go.sum
+
+# IDE and editor-specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# macOS specific files
+.DS_Store
+
+# Compiled output
+*.o
+*.a
+
+# Project-specific files
+/config.yaml
+
+# Viper config files
+config.yaml
+config.yml
+config.staging.yaml
+config.staging.yml
