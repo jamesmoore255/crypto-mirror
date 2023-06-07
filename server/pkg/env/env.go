@@ -2,19 +2,25 @@ package env
 
 import (
 	"fmt"
+	"path/filepath"
+	"runtime"
 
 	"github.com/spf13/viper"
 )
+
+func getProjectRoot() string {
+	_, filename, _, _ := runtime.Caller(1)
+	return filepath.Dir(filepath.Dir(filepath.Dir(filename)))
+}
 
 func InitEnv() {
 	// Determine the build variation (e.g., "staging" or "production")
 	buildVariation := "staging"
 
 	// Set up Viper
-	viper.SetConfigName("config")
+	viper.SetConfigName(fmt.Sprintf("config.%s", buildVariation))
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
-	viper.SetConfigFile(fmt.Sprintf("config.%s.yaml", buildVariation))
+	viper.AddConfigPath(getProjectRoot())
 
 	// Read the configuration file
 	err := viper.ReadInConfig()
@@ -23,16 +29,20 @@ func InitEnv() {
 	}
 }
 
+func GetAlchemyAPIURL() string {
+	url := viper.GetString("alchemy.url")
+	apiKey := viper.GetString("alchemy.api_key")
+
+	return fmt.Sprintf("%s/%s",
+		url, apiKey)
+}
+
 func GetServerAddress() string {
 	return viper.GetString("server.address")
 }
 
 func GetServerPort() int {
 	return viper.GetInt("server.port")
-}
-
-func GetAlchemyAPIKey() string {
-	return viper.GetString("alchemy.api_key")
 }
 
 func GetDatabaseURL() string {
