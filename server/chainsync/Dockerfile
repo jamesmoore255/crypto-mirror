@@ -1,0 +1,11 @@
+FROM golang:1.20
+
+WORKDIR /app
+
+COPY . .
+
+RUN make build
+
+EXPOSE 8080
+
+CMD ["./build/server"]
