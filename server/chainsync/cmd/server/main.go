@@ -21,7 +21,7 @@ func main() {
 	address := env.GetServerAddress()
 	port := env.GetServerPort()
 	addr := fmt.Sprintf("%s:%s", address, port)
-	r.Run(addr) // listen and serve on
+	r.Run(addr) // listen and serve oninte
 
 	logger.Info("Server started on at " + addr)
 }
