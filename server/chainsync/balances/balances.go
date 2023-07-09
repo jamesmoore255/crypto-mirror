@@ -29,7 +29,6 @@ type TokenBalance struct {
 	Balance decimal.Decimal     `json:"balance"`
 }
 
-// http://localhost:8080/api/v1/wallets/balances?addresses=0x4587FC29677eCb64bCA501a7663D3C7ebEBCb27C
 func (wa WalletAddresses) FetchBalances(bClient client.BlockClient) (*[]WalletBalances, error) {
 	resultERC20Tokens := make(chan FetchWalletTokensResult)
 	resultEtherBalances := make(chan FetchWalletEthResult)
