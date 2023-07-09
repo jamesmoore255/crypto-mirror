@@ -1,0 +1,3 @@
+# Wallet Balances Request
+
+http://localhost:8080/api/v1/wallets/balances?addresses=0x4587FC29677eCb64bCA501a7663D3C7ebEBCb27C

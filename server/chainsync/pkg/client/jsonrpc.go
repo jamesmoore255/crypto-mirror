@@ -26,9 +26,9 @@ type TokenBalance struct {
 }
 
 type BlockClient interface {
-	FetchTokens(addresses []string) ([]Wallet, error)
-	FetchEth(addresses []string) ([]EthBalance, error)
-	FetchMetadata(contractAddresses []string) (map[string]FetchMetadataResponse, error)
+	FetchTokens(addresses []string) (*[]Wallet, error)
+	FetchEth(addresses []string) (*[]EthBalance, error)
+	FetchMetadata(contractAddresses []string) (*map[string]FetchMetadataResponse, error)
 }
 
 type AlchemyAPI struct {
@@ -41,7 +41,7 @@ type TokenBalancesResponse struct {
 	Result  Wallet `json:"result"`
 }
 
-func (ac AlchemyAPI) FetchTokens(addresses []string) ([]Wallet, error) {
+func (ac AlchemyAPI) FetchTokens(addresses []string) (*[]Wallet, error) {
 	var wg sync.WaitGroup
 	wg.Add(len(addresses))
 
@@ -86,7 +86,7 @@ func (ac AlchemyAPI) FetchTokens(addresses []string) ([]Wallet, error) {
 
 	wg.Wait()
 
-	return result, nil
+	return &result, nil
 }
 
 type FetchEthResponse struct {
@@ -95,7 +95,7 @@ type FetchEthResponse struct {
 	Result  string `json:"result"` // hex
 }
 
-func (ac AlchemyAPI) FetchEth(addresses []string) ([]EthBalance, error) {
+func (ac AlchemyAPI) FetchEth(addresses []string) (*[]EthBalance, error) {
 	var wg sync.WaitGroup
 	wg.Add(len(addresses))
 
@@ -144,7 +144,7 @@ func (ac AlchemyAPI) FetchEth(addresses []string) ([]EthBalance, error) {
 
 	wg.Wait()
 
-	return result, nil
+	return &result, nil
 }
 
 type FetchMetadataResponse struct {
@@ -153,7 +153,7 @@ type FetchMetadataResponse struct {
 	Result  model.TokenMetadata `json:"result"`
 }
 
-func (ac AlchemyAPI) FetchMetadata(contractAddresses []string) (map[string]FetchMetadataResponse, error) {
+func (ac AlchemyAPI) FetchMetadata(contractAddresses []string) (*map[string]FetchMetadataResponse, error) {
 	var wg sync.WaitGroup
 	wg.Add(len(contractAddresses))
 
@@ -202,5 +202,5 @@ func (ac AlchemyAPI) FetchMetadata(contractAddresses []string) (map[string]Fetch
 
 	logger.Infof("Token metadata: %v", tokenMetadata)
 
-	return tokenMetadata, nil
+	return &tokenMetadata, nil
 }

@@ -2,7 +2,7 @@ package utils
 
 import "github.com/jamesmoore255/crypto-mirror/server/chainsync/pkg/model"
 
-var EthMetadata = model.TokenMetadata{
+var EthMetadata = &model.TokenMetadata{
 	Name:     "Ethereum",
 	Symbol:   "ETH",
 	Decimals: 18,

@@ -19,8 +19,6 @@ func RegisterRoutes(r *gin.Engine) {
 	r.GET(v1Path("wallets/balances"), walletsTokensHandler)
 }
 
-//0x4587FC29677eCb64bCA501a7663D3C7ebEBCb27C
-
 func walletsTokensHandler(c *gin.Context) {
 	addresses := balances.WalletAddresses(c.QueryArray("addresses"))
 
@@ -33,5 +31,5 @@ func walletsTokensHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, holdings)
+	c.JSON(200, *holdings)
 }
